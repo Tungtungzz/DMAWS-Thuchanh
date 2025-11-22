@@ -1,0 +1,225 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>BATTLEGAME - Assets by Player Report</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+        }
+
+        h2 {
+            margin: 0 0 12px;
+            text-align: center;
+        }
+
+        button {
+            padding: 8px 14px;
+            border-radius: 6px;
+            border: none;
+            background: #0078ff;
+            color: #fff;
+            cursor: pointer;
+            margin-right: 8px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 12px;
+        }
+
+        th, td {
+            border: 1px solid #e2e8f0;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background: #f1f5f9;
+        }
+
+        .no-data {
+            text-align: center;
+            color: #6b7280;
+            padding: 18px;
+        }
+
+        .error {
+            color: #b91c1c;
+            margin-top: 10px;
+            white-space: pre-wrap;
+        }
+
+        .small {
+            font-size: 13px;
+            color: #475569;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>BATTLEGAME — Asset Report</h2>
+        <div style="display:flex; align-items:center; gap:8px;">
+            <button id="btnLoad">Load report</button>
+            <button id="btnSeed">Seed sample data</button>
+            <div class="small" id="status"></div>
+        </div>
+
+        <table id="reportTable">
+            <thead>
+                <tr><th>No</th><th>Player name</th><th>Level</th><th>Age</th><th>Asset name</th></tr>
+            </thead>
+            <tbody id="tableBody">
+                <tr><td class="no-data" colspan="5">Click "Load report" to view data</td></tr>
+            </tbody>
+        </table>
+
+        <div id="error" class="error" style="display:none"></div>
+    </div>
+
+    <script>
+        // We'll try possible base paths until one works
+        const candidates = ['/api', '']; // '/api' (if routePrefix=api) and '' (if routePrefix empty)
+        const endpoints = candidates.map(c => `${c}/getassetsbyplayer`.replace('//', '/'));
+        const seedPlayerEndpointCandidates = candidates.map(c => `${c}/registerplayer`.replace('//', '/'));
+        const seedAssetEndpointCandidates = candidates.map(c => `${c}/createasset`.replace('//', '/'));
+        const seedAssignEndpointCandidates = candidates.map(c => `${c}/assignasset`.replace('//', '/'));
+
+        // Try endpoints in order to find first that responds OK (200) or 201 for POST
+        async function probeGet(url) {
+            try {
+                const res = await fetch(url, { method: 'GET' });
+                return res;
+            } catch (e) {
+                return null;
+            }
+        }
+
+        async function findWorkingGet() {
+            for (const ep of endpoints) {
+                const url = ep; // relative path
+                const res = await probeGet(url);
+                if (res && res.ok) return url;
+                // if server returns 404 or 405, keep trying to get more descriptive error
+                if (res && (res.status === 404 || res.status === 405)) {
+                    console.log('probeGet', url, 'status', res.status);
+                }
+            }
+            return null;
+        }
+
+        async function loadReport() {
+            const tbody = document.getElementById('tableBody');
+            const err = document.getElementById('error');
+            err.style.display = 'none';
+            tbody.innerHTML = `<tr><td colspan="5" class="no-data">Loading...</td></tr>`;
+
+            let working = await findWorkingGet();
+            if (!working) {
+                // give more detail by trying each and printing status
+                let msgs = [];
+                for (const ep of endpoints) {
+                    try {
+                        const res = await fetch(ep, { method: 'GET' });
+                        msgs.push(`${ep} -> ${res.status} ${res.statusText}`);
+                    } catch (e) {
+                        msgs.push(`${ep} -> error: ${e.message}`);
+                    }
+                }
+                err.textContent = `No working GET endpoint found.\nTried:\n${msgs.join('\n')}\n\nOpen DevTools Network tab to see request details.`;
+                err.style.display = 'block';
+                tbody.innerHTML = `<tr><td colspan="5" class="no-data">Error loading data</td></tr>`;
+                console.error('No working endpoint for getassetsbyplayer', msgs);
+                return;
+            }
+
+            // fetch actual data
+            try {
+                const resp = await fetch(working);
+                if (!resp.ok) throw new Error(`${resp.status} ${resp.statusText} - ${await resp.text()}`);
+                const data = await resp.json();
+                if (!data || data.length === 0) {
+                    tbody.innerHTML = `<tr><td colspan="5" class="no-data">No data found</td></tr>`;
+                    return;
+                }
+                tbody.innerHTML = '';
+                data.forEach((it, idx) => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `<td>${idx + 1}</td>
+                            <td>${escapeHtml(it.playerName ?? it.PlayerName ?? '')}</td>
+                            <td>${it.level ?? it.Level ?? ''}</td>
+                            <td>${it.age ?? it.Age ?? ''}</td>
+                            <td>${escapeHtml(it.assetName ?? it.AssetName ?? '')}</td>`;
+                    tbody.appendChild(tr);
+                });
+            } catch (e) {
+                err.textContent = 'Error loading data: ' + e.message;
+                err.style.display = 'block';
+                tbody.innerHTML = `<tr><td colspan="5" class="no-data">Error loading data</td></tr>`;
+                console.error(e);
+            }
+        }
+
+        // seed: try each candidate POST endpoints until one returns created/ok
+        async function seedSampleData() {
+            const status = document.getElementById('status');
+            const err = document.getElementById('error');
+            err.style.display = 'none';
+            status.textContent = 'Seeding...';
+
+            // create player
+            let player = null, asset = null;
+            for (let i = 0; i < seedPlayerEndpointCandidates.length; i++) {
+                const ep = seedPlayerEndpointCandidates[i];
+                try {
+                    const p = await fetch(ep, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ playerName: 'SeedPlayer', fullName: 'Seed Player', age: 30, level: 1 }) });
+                    if (p.ok) { player = await p.json(); break; }
+                } catch (e) { console.log('seed player try', ep, e.message); }
+            }
+            if (!player) { err.textContent = 'Failed to create player on any endpoint.'; err.style.display = 'block'; status.textContent = ''; return; }
+
+            // create asset
+            for (let i = 0; i < seedAssetEndpointCandidates.length; i++) {
+                const ep = seedAssetEndpointCandidates[i];
+                try {
+                    const a = await fetch(ep, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ assetName: 'SeedSword', description: 'Seeded', levelRequire: 1 }) });
+                    if (a.ok) { asset = await a.json(); break; }
+                } catch (e) { console.log('seed asset try', ep, e.message); }
+            }
+            if (!asset) { err.textContent = 'Failed to create asset on any endpoint.'; err.style.display = 'block'; status.textContent = ''; return; }
+
+            // assign
+            for (let i = 0; i < seedAssignEndpointCandidates.length; i++) {
+                const ep = seedAssignEndpointCandidates[i];
+                try {
+                    const asg = await fetch(ep, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ playerId: player.playerId ?? player.PlayerId, assetId: asset.assetId ?? asset.AssetId }) });
+                    if (asg.ok) { status.textContent = 'Seed completed'; await loadReport(); setTimeout(() => status.textContent = '', 2000); return; }
+                } catch (e) { console.log('assign try', ep, e.message); }
+            }
+
+            err.textContent = 'Failed to assign asset after creating player/asset.';
+            err.style.display = 'block';
+            status.textContent = '';
+        }
+
+        function escapeHtml(str) {
+            return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+        }
+
+        document.getElementById('btnLoad').addEventListener('click', loadReport);
+        document.getElementById('btnSeed').addEventListener('click', seedSampleData);
+    </script>
+</body>
+</html>

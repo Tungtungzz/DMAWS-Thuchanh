@@ -1,0 +1,229 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\tungs\\Documents\\project\\Battlegame.Functions\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{169134CB-4BD4-B198-F3B5-F7A44A90941D}|Battlegame.Functions\\Battlegame.Functions.csproj|c:\\users\\tungs\\documents\\project\\battlegame.functions\\battlegame.functions\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{169134CB-4BD4-B198-F3B5-F7A44A90941D}|Battlegame.Functions\\Battlegame.Functions.csproj|solutionrelative:battlegame.functions\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{169134CB-4BD4-B198-F3B5-F7A44A90941D}|Battlegame.Functions\\Battlegame.Functions.csproj|c:\\users\\tungs\\documents\\project\\battlegame.functions\\battlegame.functions\\host.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{169134CB-4BD4-B198-F3B5-F7A44A90941D}|Battlegame.Functions\\Battlegame.Functions.csproj|solutionrelative:battlegame.functions\\host.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{169134CB-4BD4-B198-F3B5-F7A44A90941D}|Battlegame.Functions\\Battlegame.Functions.csproj|c:\\users\\tungs\\documents\\project\\battlegame.functions\\battlegame.functions\\functions\\staticfilefunction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{169134CB-4BD4-B198-F3B5-F7A44A90941D}|Battlegame.Functions\\Battlegame.Functions.csproj|solutionrelative:battlegame.functions\\functions\\staticfilefunction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{169134CB-4BD4-B198-F3B5-F7A44A90941D}|Battlegame.Functions\\Battlegame.Functions.csproj|c:\\users\\tungs\\documents\\project\\battlegame.functions\\battlegame.functions\\migrations\\20251122130435_initialcreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{169134CB-4BD4-B198-F3B5-F7A44A90941D}|Battlegame.Functions\\Battlegame.Functions.csproj|solutionrelative:battlegame.functions\\migrations\\20251122130435_initialcreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{169134CB-4BD4-B198-F3B5-F7A44A90941D}|Battlegame.Functions\\Battlegame.Functions.csproj|c:\\users\\tungs\\documents\\project\\battlegame.functions\\battlegame.functions\\data\\designtime\\designtimedbcontextfactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{169134CB-4BD4-B198-F3B5-F7A44A90941D}|Battlegame.Functions\\Battlegame.Functions.csproj|solutionrelative:battlegame.functions\\data\\designtime\\designtimedbcontextfactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{169134CB-4BD4-B198-F3B5-F7A44A90941D}|Battlegame.Functions\\Battlegame.Functions.csproj|c:\\users\\tungs\\documents\\project\\battlegame.functions\\battlegame.functions\\battlegame.functions.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{169134CB-4BD4-B198-F3B5-F7A44A90941D}|Battlegame.Functions\\Battlegame.Functions.csproj|solutionrelative:battlegame.functions\\battlegame.functions.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{169134CB-4BD4-B198-F3B5-F7A44A90941D}|Battlegame.Functions\\Battlegame.Functions.csproj|c:\\users\\tungs\\documents\\project\\battlegame.functions\\battlegame.functions\\wwwroot\\index.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{169134CB-4BD4-B198-F3B5-F7A44A90941D}|Battlegame.Functions\\Battlegame.Functions.csproj|solutionrelative:battlegame.functions\\wwwroot\\index.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{169134CB-4BD4-B198-F3B5-F7A44A90941D}|Battlegame.Functions\\Battlegame.Functions.csproj|c:\\users\\tungs\\documents\\project\\battlegame.functions\\battlegame.functions\\functions\\playerfunctions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{169134CB-4BD4-B198-F3B5-F7A44A90941D}|Battlegame.Functions\\Battlegame.Functions.csproj|solutionrelative:battlegame.functions\\functions\\playerfunctions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{169134CB-4BD4-B198-F3B5-F7A44A90941D}|Battlegame.Functions\\Battlegame.Functions.csproj|c:\\users\\tungs\\documents\\project\\battlegame.functions\\battlegame.functions\\local.settings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{169134CB-4BD4-B198-F3B5-F7A44A90941D}|Battlegame.Functions\\Battlegame.Functions.csproj|solutionrelative:battlegame.functions\\local.settings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{169134CB-4BD4-B198-F3B5-F7A44A90941D}|Battlegame.Functions\\Battlegame.Functions.csproj|c:\\users\\tungs\\documents\\project\\battlegame.functions\\battlegame.functions\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{169134CB-4BD4-B198-F3B5-F7A44A90941D}|Battlegame.Functions\\Battlegame.Functions.csproj|solutionrelative:battlegame.functions\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{169134CB-4BD4-B198-F3B5-F7A44A90941D}|Battlegame.Functions\\Battlegame.Functions.csproj|c:\\users\\tungs\\documents\\project\\battlegame.functions\\battlegame.functions\\models\\playerasset.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{169134CB-4BD4-B198-F3B5-F7A44A90941D}|Battlegame.Functions\\Battlegame.Functions.csproj|solutionrelative:battlegame.functions\\models\\playerasset.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{169134CB-4BD4-B198-F3B5-F7A44A90941D}|Battlegame.Functions\\Battlegame.Functions.csproj|c:\\users\\tungs\\documents\\project\\battlegame.functions\\battlegame.functions\\models\\asset.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{169134CB-4BD4-B198-F3B5-F7A44A90941D}|Battlegame.Functions\\Battlegame.Functions.csproj|solutionrelative:battlegame.functions\\models\\asset.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{169134CB-4BD4-B198-F3B5-F7A44A90941D}|Battlegame.Functions\\Battlegame.Functions.csproj|c:\\users\\tungs\\documents\\project\\battlegame.functions\\battlegame.functions\\models\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{169134CB-4BD4-B198-F3B5-F7A44A90941D}|Battlegame.Functions\\Battlegame.Functions.csproj|solutionrelative:battlegame.functions\\models\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 8,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "host.json",
+              "DocumentMoniker": "C:\\Users\\tungs\\Documents\\project\\Battlegame.Functions\\Battlegame.Functions\\host.json",
+              "RelativeDocumentMoniker": "Battlegame.Functions\\host.json",
+              "ToolTip": "C:\\Users\\tungs\\Documents\\project\\Battlegame.Functions\\Battlegame.Functions\\host.json",
+              "RelativeToolTip": "Battlegame.Functions\\host.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-11-22T13:49:52.744Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "StaticFileFunction.cs",
+              "DocumentMoniker": "C:\\Users\\tungs\\Documents\\project\\Battlegame.Functions\\Battlegame.Functions\\Functions\\StaticFileFunction.cs",
+              "RelativeDocumentMoniker": "Battlegame.Functions\\Functions\\StaticFileFunction.cs",
+              "ToolTip": "C:\\Users\\tungs\\Documents\\project\\Battlegame.Functions\\Battlegame.Functions\\Functions\\StaticFileFunction.cs",
+              "RelativeToolTip": "Battlegame.Functions\\Functions\\StaticFileFunction.cs",
+              "ViewState": "AgIAADoAAAAAAAAAAAAYwFEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-22T13:49:22.412Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "20251122130435_InitialCreate.cs",
+              "DocumentMoniker": "C:\\Users\\tungs\\Documents\\project\\Battlegame.Functions\\Battlegame.Functions\\Migrations\\20251122130435_InitialCreate.cs",
+              "RelativeDocumentMoniker": "Battlegame.Functions\\Migrations\\20251122130435_InitialCreate.cs",
+              "ToolTip": "C:\\Users\\tungs\\Documents\\project\\Battlegame.Functions\\Battlegame.Functions\\Migrations\\20251122130435_InitialCreate.cs",
+              "RelativeToolTip": "Battlegame.Functions\\Migrations\\20251122130435_InitialCreate.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-22T13:04:36.028Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "DesignTimeDbContextFactory.cs",
+              "DocumentMoniker": "C:\\Users\\tungs\\Documents\\project\\Battlegame.Functions\\Battlegame.Functions\\Data\\DesignTime\\DesignTimeDbContextFactory.cs",
+              "RelativeDocumentMoniker": "Battlegame.Functions\\Data\\DesignTime\\DesignTimeDbContextFactory.cs",
+              "ToolTip": "C:\\Users\\tungs\\Documents\\project\\Battlegame.Functions\\Battlegame.Functions\\Data\\DesignTime\\DesignTimeDbContextFactory.cs",
+              "RelativeToolTip": "Battlegame.Functions\\Data\\DesignTime\\DesignTimeDbContextFactory.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAYwBQAAABBAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-22T12:53:28.219Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Battlegame.Functions.csproj",
+              "DocumentMoniker": "C:\\Users\\tungs\\Documents\\project\\Battlegame.Functions\\Battlegame.Functions\\Battlegame.Functions.csproj",
+              "RelativeDocumentMoniker": "Battlegame.Functions\\Battlegame.Functions.csproj",
+              "ToolTip": "C:\\Users\\tungs\\Documents\\project\\Battlegame.Functions\\Battlegame.Functions\\Battlegame.Functions.csproj",
+              "RelativeToolTip": "Battlegame.Functions\\Battlegame.Functions.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-11-22T12:48:30.523Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "index.html",
+              "DocumentMoniker": "C:\\Users\\tungs\\Documents\\project\\Battlegame.Functions\\Battlegame.Functions\\wwwroot\\index.html",
+              "RelativeDocumentMoniker": "Battlegame.Functions\\wwwroot\\index.html",
+              "ToolTip": "C:\\Users\\tungs\\Documents\\project\\Battlegame.Functions\\Battlegame.Functions\\wwwroot\\index.html",
+              "RelativeToolTip": "Battlegame.Functions\\wwwroot\\index.html",
+              "ViewState": "AgIAAMgAAAAAAAAAAAAwwNgAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2025-11-22T12:45:52.919Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "PlayerFunctions.cs",
+              "DocumentMoniker": "C:\\Users\\tungs\\Documents\\project\\Battlegame.Functions\\Battlegame.Functions\\Functions\\PlayerFunctions.cs",
+              "RelativeDocumentMoniker": "Battlegame.Functions\\Functions\\PlayerFunctions.cs",
+              "ToolTip": "C:\\Users\\tungs\\Documents\\project\\Battlegame.Functions\\Battlegame.Functions\\Functions\\PlayerFunctions.cs",
+              "RelativeToolTip": "Battlegame.Functions\\Functions\\PlayerFunctions.cs",
+              "ViewState": "AgIAACYAAAAAAAAAAAAAADMAAABJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-22T12:44:43.098Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "local.settings.json",
+              "DocumentMoniker": "C:\\Users\\tungs\\Documents\\project\\Battlegame.Functions\\Battlegame.Functions\\local.settings.json",
+              "RelativeDocumentMoniker": "Battlegame.Functions\\local.settings.json",
+              "ToolTip": "C:\\Users\\tungs\\Documents\\project\\Battlegame.Functions\\Battlegame.Functions\\local.settings.json",
+              "RelativeToolTip": "Battlegame.Functions\\local.settings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-11-22T12:44:14.396Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\tungs\\Documents\\project\\Battlegame.Functions\\Battlegame.Functions\\Program.cs",
+              "RelativeDocumentMoniker": "Battlegame.Functions\\Program.cs",
+              "ToolTip": "C:\\Users\\tungs\\Documents\\project\\Battlegame.Functions\\Battlegame.Functions\\Program.cs",
+              "RelativeToolTip": "Battlegame.Functions\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-22T12:42:43.829Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "AppDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\tungs\\Documents\\project\\Battlegame.Functions\\Battlegame.Functions\\Data\\AppDbContext.cs",
+              "RelativeDocumentMoniker": "Battlegame.Functions\\Data\\AppDbContext.cs",
+              "ToolTip": "C:\\Users\\tungs\\Documents\\project\\Battlegame.Functions\\Battlegame.Functions\\Data\\AppDbContext.cs",
+              "RelativeToolTip": "Battlegame.Functions\\Data\\AppDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-22T12:42:33.443Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "PlayerAsset.cs",
+              "DocumentMoniker": "C:\\Users\\tungs\\Documents\\project\\Battlegame.Functions\\Battlegame.Functions\\Models\\PlayerAsset.cs",
+              "RelativeDocumentMoniker": "Battlegame.Functions\\Models\\PlayerAsset.cs",
+              "ToolTip": "C:\\Users\\tungs\\Documents\\project\\Battlegame.Functions\\Battlegame.Functions\\Models\\PlayerAsset.cs",
+              "RelativeToolTip": "Battlegame.Functions\\Models\\PlayerAsset.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-22T12:41:47.401Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Asset.cs",
+              "DocumentMoniker": "C:\\Users\\tungs\\Documents\\project\\Battlegame.Functions\\Battlegame.Functions\\Models\\Asset.cs",
+              "RelativeDocumentMoniker": "Battlegame.Functions\\Models\\Asset.cs",
+              "ToolTip": "C:\\Users\\tungs\\Documents\\project\\Battlegame.Functions\\Battlegame.Functions\\Models\\Asset.cs",
+              "RelativeToolTip": "Battlegame.Functions\\Models\\Asset.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-22T12:41:36.472Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Player.cs",
+              "DocumentMoniker": "C:\\Users\\tungs\\Documents\\project\\Battlegame.Functions\\Battlegame.Functions\\Models\\Player.cs",
+              "RelativeDocumentMoniker": "Battlegame.Functions\\Models\\Player.cs",
+              "ToolTip": "C:\\Users\\tungs\\Documents\\project\\Battlegame.Functions\\Battlegame.Functions\\Models\\Player.cs",
+              "RelativeToolTip": "Battlegame.Functions\\Models\\Player.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAYwAsAAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-22T12:41:24.383Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
