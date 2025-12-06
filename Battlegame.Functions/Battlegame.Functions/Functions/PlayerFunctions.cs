@@ -23,6 +23,47 @@ namespace Battlegame.Functions.Functions
             _logger = loggerFactory.CreateLogger<PlayerFunctions>();
         }
 
+
+
+        [Function("getplayers")]
+        public async Task<HttpResponseData> GetPlayers([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "getplayers")] HttpRequestData req)
+        {
+            var players = await _db.Players
+                .Select(p => new {
+                    playerId = p.PlayerId,
+                    playerName = p.PlayerName,
+                    fullName = p.FullName,
+                    age = p.Age,
+                    level = p.Level,
+                    email = p.Email
+                })
+                .ToListAsync();
+
+            var resp = req.CreateResponse(System.Net.HttpStatusCode.OK);
+            await resp.WriteAsJsonAsync(players);
+            return resp;
+        }
+
+        // 2) GET all assets (id + assetName + description + levelRequire)
+        [Function("getassets")]
+        public async Task<HttpResponseData> GetAssets([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "getassets")] HttpRequestData req)
+        {
+            var assets = await _db.Assets
+                .Select(a => new {
+                    assetId = a.AssetId,
+                    assetName = a.AssetName,
+                    description = a.Description,
+                    levelRequire = a.LevelRequire
+                })
+                .ToListAsync();
+
+            var resp = req.CreateResponse(System.Net.HttpStatusCode.OK);
+            await resp.WriteAsJsonAsync(assets);
+            return resp;
+        }
+
+
+
         [Function("registerplayer")]
         public async Task<HttpResponseData> RegisterPlayer([HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "registerplayer")] HttpRequestData req)
         {
@@ -99,27 +140,70 @@ namespace Battlegame.Functions.Functions
         }
 
         [Function("getassetsbyplayer")]
-        public async Task<HttpResponseData> GetAssetsByPlayer([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "getassetsbyplayer")] HttpRequestData req)
+        public async Task<HttpResponseData> GetAssetsByPlayer_AllPlayers([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "getassetsbyplayer")] HttpRequestData req)
         {
-            var list = await _db.PlayerAssets
-                .Include(pa => pa.Player)
-                .Include(pa => pa.Asset)
-                .OrderBy(pa => pa.AcquiredAt)
-                .ToListAsync();
+            // Left join players with playerAssets -> asset (if any)
+            var query = from p in _db.Players
+                        join pa in _db.PlayerAssets on p.PlayerId equals pa.PlayerId into paGroup
+                        from pag in paGroup.DefaultIfEmpty()
+                        join a in _db.Assets on pag.AssetId equals a.AssetId into aGroup
+                        from ag in aGroup.DefaultIfEmpty()
+                        orderby p.PlayerName
+                        select new
+                        {
+                            PlayerId = p.PlayerId,
+                            PlayerName = p.PlayerName,
+                            Level = p.Level,
+                            Age = p.Age,
+                            AssetId = ag != null ? ag.AssetId : (Guid?)null,
+                            AssetName = ag != null ? ag.AssetName : null
+                        };
 
-            var result = list.Select((pa, idx) => new {
-                No = idx + 1,
-                PlayerName = pa.Player?.PlayerName,
-                Level = pa.Player?.Level,
-                Age = pa.Player?.Age,
-                AssetName = pa.Asset?.AssetName,
-                AcquiredAt = pa.AcquiredAt
-            }).ToList();
+            var result = await query.ToListAsync();
 
             var resp = req.CreateResponse(System.Net.HttpStatusCode.OK);
             await resp.WriteAsJsonAsync(result);
             return resp;
         }
+
+        // --- Add this new function to delete a player by id ---
+        [Function("deleteplayer")]
+        public async Task<HttpResponseData> DeletePlayer(
+            [HttpTrigger(AuthorizationLevel.Function, "delete", Route = "deleteplayer/{id}")] HttpRequestData req,
+            string id)
+        {
+            var logger = _logger; // use injected logger
+            if (!Guid.TryParse(id, out var playerGuid))
+            {
+                var badReq = req.CreateResponse(System.Net.HttpStatusCode.BadRequest);
+                await badReq.WriteStringAsync("Invalid player id.");
+                return badReq;
+            }
+
+            var player = await _db.Players.FindAsync(playerGuid);
+            if (player == null)
+            {
+                var notFound = req.CreateResponse(System.Net.HttpStatusCode.NotFound);
+                await notFound.WriteStringAsync("Player not found.");
+                return notFound;
+            }
+
+            // Remove related PlayerAssets first (if not cascade)
+            var relations = _db.PlayerAssets.Where(pa => pa.PlayerId == playerGuid);
+            _db.PlayerAssets.RemoveRange(relations);
+
+            // Then remove player
+            _db.Players.Remove(player);
+
+            await _db.SaveChangesAsync();
+
+            var ok = req.CreateResponse(System.Net.HttpStatusCode.OK);
+            await ok.WriteStringAsync("Player deleted.");
+            return ok;
+        }
+
+
+     
 
         private class AssignDto
         {

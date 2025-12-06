@@ -2,224 +2,514 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>BATTLEGAME - Assets by Player Report</title>
+    <title>BATTLEGAME - Admin Tabs</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
     <style>
+        :root {
+            --bg: #f4f6f8;
+            --card: #fff;
+            --muted: #64748b;
+            --accent: #0ea5ff;
+            --danger: #b91c1c
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            background: #f4f6f8;
-            padding: 20px;
+            font-family: Inter, Arial, Helvetica, sans-serif;
+            background: var(--bg);
+            margin: 0;
+            padding: 24px;
+            color: #0f172a
         }
 
         .container {
-            max-width: 900px;
-            margin: 0 auto;
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+            max-width: 1100px;
+            margin: 0 auto
         }
 
-        h2 {
-            margin: 0 0 12px;
-            text-align: center;
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px
+        }
+
+        h1 {
+            font-size: 20px;
+            margin: 0
+        }
+
+        .tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px
+        }
+
+        .tab {
+            padding: 8px 12px;
+            background: #fff;
+            border-radius: 8px;
+            cursor: pointer;
+            border: 1px solid #e6edf3
+        }
+
+            .tab.active {
+                background: linear-gradient(180deg,#e6f0ff,#dbeeff);
+                border-color: var(--accent);
+                box-shadow: 0 6px 20px rgba(14,165,255,0.08)
+            }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px
+        }
+
+        .card {
+            background: var(--card);
+            padding: 14px;
+            border-radius: 10px;
+            box-shadow: 0 6px 18px rgba(2,6,23,0.06)
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            margin: 8px 0 4px;
+            color: #334155
+        }
+
+        input, select {
+            width: 100%;
+            padding: 8px;
+            border-radius: 8px;
+            border: 1px solid #cbd5e1
         }
 
         button {
-            padding: 8px 14px;
-            border-radius: 6px;
-            border: none;
-            background: #0078ff;
-            color: #fff;
-            cursor: pointer;
-            margin-right: 8px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: 0;
+            background: var(--accent);
+            color: white;
+            cursor: pointer
+        }
+
+            button.secondary {
+                background: #64748b
+            }
+
+        .muted {
+            color: var(--muted);
+            font-size: 13px
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 12px;
+            margin-top: 12px
         }
 
         th, td {
-            border: 1px solid #e2e8f0;
+            border: 1px solid #e6edf3;
             padding: 8px;
-            text-align: left;
+            text-align: left
         }
 
         th {
-            background: #f1f5f9;
+            background: #f1f5f9
         }
 
         .no-data {
+            padding: 14px;
             text-align: center;
-            color: #6b7280;
-            padding: 18px;
+            color: var(--muted)
+        }
+
+        .notice {
+            margin-top: 8px;
+            color: #065f46;
+            font-size: 13px
         }
 
         .error {
-            color: #b91c1c;
-            margin-top: 10px;
+            margin-top: 8px;
+            color: var(--danger);
             white-space: pre-wrap;
+            font-size: 13px
         }
+        /* responsive */
+        @media (max-width:900px) {
+            .grid {
+                grid-template-columns: 1fr
+            }
 
-        .small {
-            font-size: 13px;
-            color: #475569;
+            .tabs {
+                flex-wrap: wrap
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h2>BATTLEGAME — Asset Report</h2>
-        <div style="display:flex; align-items:center; gap:8px;">
-            <button id="btnLoad">Load report</button>
-            <button id="btnSeed">Seed sample data</button>
-            <div class="small" id="status"></div>
+        <header>
+            <h1>BATTLEGAME — Admin panel</h1>
+            <div class="muted">Local test UI</div>
+        </header>
+
+        <div class="tabs" role="tablist" aria-label="Views">
+            <div class="tab active" data-view="report">Assets by Player (Report)</div>
+            <div class="tab" data-view="register">Register Player</div>
+            <div class="tab" data-view="create">Create Asset</div>
+            <div class="tab" data-view="assign">Assign Asset to Player</div>
         </div>
 
-        <table id="reportTable">
-            <thead>
-                <tr><th>No</th><th>Player name</th><th>Level</th><th>Age</th><th>Asset name</th></tr>
-            </thead>
-            <tbody id="tableBody">
-                <tr><td class="no-data" colspan="5">Click "Load report" to view data</td></tr>
-            </tbody>
-        </table>
+        <div id="views">
+            <!-- Report view -->
+            <div class="card view" id="view-report" style="display:block">
+                <div style="display:flex;justify-content:space-between;align-items:center">
+                    <h3 style="margin:0">Assets by Player (Report)</h3>
+                    <div>
+                        <button id="btnLoad">Load report</button>
+                        <button id="btnSeed" class="secondary">Seed sample</button>
+                    </div>
+                </div>
 
-        <div id="error" class="error" style="display:none"></div>
+                <table aria-live="polite">
+                    <thead><tr><th>No</th><th>Player name</th><th>Level</th><th>Age</th><th>Asset name</th><th>Action</th></tr></thead>
+                    <tbody id="reportBody"><tr><td colspan="6" class="no-data">Click "Load report" to fetch data</td></tr></tbody>
+                </table>
+                <div id="reportErr" class="error" style="display:none"></div>
+            </div>
+
+            <!-- Register view -->
+            <div class="card view" id="view-register" style="display:none">
+                <h3>Register Player</h3>
+                <label>Player name</label><input id="p_name" type="text" placeholder="player short name (required)" />
+                <label>Full name</label><input id="p_full" type="text" placeholder="Full name" />
+                <label>Age</label><input id="p_age" type="number" min="0" />
+                <label>Level</label><input id="p_level" type="number" min="0" />
+                <label>Email</label><input id="p_email" type="text" placeholder="email" />
+
+                <div style="margin-top:10px;display:flex;gap:8px">
+                    <button id="btnRegister">Register player</button>
+                    <button id="btnClear" class="secondary">Clear</button>
+                </div>
+                <div id="registerMsg" class="notice" style="display:none"></div>
+                <div id="registerErr" class="error" style="display:none"></div>
+            </div>
+
+            <!-- Create asset -->
+            <div class="card view" id="view-create" style="display:none">
+                <h3>Create Asset</h3>
+                <label>Asset name</label><input id="a_name" type="text" />
+                <label>Description</label><input id="a_desc" type="text" />
+                <label>Level require</label><input id="a_level" type="number" min="0" />
+                <div style="margin-top:10px"><button id="btnCreateAsset">Create asset</button></div>
+                <div id="createMsg" class="notice" style="display:none"></div>
+                <div id="createErr" class="error" style="display:none"></div>
+            </div>
+
+            <!-- Assign view -->
+            <div class="card view" id="view-assign" style="display:none">
+                <h3>Assign Asset to Player</h3>
+                <label>Select Player (by ID)</label>
+                <select id="selPlayer"></select>
+                <label>Select Asset (by ID)</label>
+                <select id="selAsset"></select>
+                <div style="margin-top:10px;display:flex;gap:8px">
+                    <button id="btnAssign">Assign Asset</button>
+                    <button id="btnRefreshLists" class="secondary">Refresh lists</button>
+                </div>
+                <div id="assignMsg" class="notice" style="display:none"></div>
+                <div id="assignErr" class="error" style="display:none"></div>
+                <div class="muted" style="margin-top:8px">If selects are empty, the UI will ask for GUIDs or you can use "Refresh lists".</div>
+            </div>
+        </div>
+
     </div>
 
     <script>
-        // We'll try possible base paths until one works
-        const candidates = ['/api', '']; // '/api' (if routePrefix=api) and '' (if routePrefix empty)
-        const endpoints = candidates.map(c => `${c}/getassetsbyplayer`.replace('//', '/'));
-        const seedPlayerEndpointCandidates = candidates.map(c => `${c}/registerplayer`.replace('//', '/'));
-        const seedAssetEndpointCandidates = candidates.map(c => `${c}/createasset`.replace('//', '/'));
-        const seedAssignEndpointCandidates = candidates.map(c => `${c}/assignasset`.replace('//', '/'));
+        /* Utilities: try / probe endpoints with prefixes */
+        const prefixes = ['/api', '']; // try /api then root
+        function makeUrls(path) { return prefixes.map(p => (p + '/' + path).replace(/\/+/g, '/')); }
 
-        // Try endpoints in order to find first that responds OK (200) or 201 for POST
-        async function probeGet(url) {
+        async function probeGetOnce(url) {
             try {
                 const res = await fetch(url, { method: 'GET' });
                 return res;
-            } catch (e) {
-                return null;
-            }
+            } catch (e) { return null; }
         }
 
-        async function findWorkingGet() {
-            for (const ep of endpoints) {
-                const url = ep; // relative path
-                const res = await probeGet(url);
-                if (res && res.ok) return url;
-                // if server returns 404 or 405, keep trying to get more descriptive error
-                if (res && (res.status === 404 || res.status === 405)) {
-                    console.log('probeGet', url, 'status', res.status);
-                }
+        async function findWorkingGet(path) {
+            const urls = makeUrls(path);
+            for (const u of urls) {
+                const res = await probeGetOnce(u);
+                if (res && res.ok) return u;
             }
             return null;
         }
 
-        async function loadReport() {
-            const tbody = document.getElementById('tableBody');
-            const err = document.getElementById('error');
-            err.style.display = 'none';
-            tbody.innerHTML = `<tr><td colspan="5" class="no-data">Loading...</td></tr>`;
-
-            let working = await findWorkingGet();
-            if (!working) {
-                // give more detail by trying each and printing status
-                let msgs = [];
-                for (const ep of endpoints) {
-                    try {
-                        const res = await fetch(ep, { method: 'GET' });
-                        msgs.push(`${ep} -> ${res.status} ${res.statusText}`);
-                    } catch (e) {
-                        msgs.push(`${ep} -> error: ${e.message}`);
+        async function tryPost(path, bodyObj) {
+            const urls = makeUrls(path);
+            for (const u of urls) {
+                try {
+                    const res = await fetch(u, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(bodyObj) });
+                    if (res.ok) {
+                        try { const json = await res.json(); return { ok: true, url: u, data: json }; } catch (e) { return { ok: true, url: u, data: null }; }
+                    } else {
+                        // try next for 404/405
+                        if (res.status === 404 || res.status === 405) continue;
+                        const text = await res.text();
+                        return { ok: false, url: u, status: res.status, text };
                     }
+                } catch (e) {
+                    // network error -> try next
                 }
-                err.textContent = `No working GET endpoint found.\nTried:\n${msgs.join('\n')}\n\nOpen DevTools Network tab to see request details.`;
-                err.style.display = 'block';
-                tbody.innerHTML = `<tr><td colspan="5" class="no-data">Error loading data</td></tr>`;
-                console.error('No working endpoint for getassetsbyplayer', msgs);
+            }
+            return { ok: false, error: 'No endpoint responded' };
+        }
+
+        /* UI helpers */
+        function show(id, text) { const e = document.getElementById(id); e.textContent = text; e.style.display = text ? 'block' : 'none'; }
+        function hideIds(...ids) { ids.forEach(id => document.getElementById(id).style.display = 'none'); }
+        function clearNotices() { hideIds('registerMsg', 'createMsg', 'assignMsg', 'reportErr', 'registerErr', 'createErr', 'assignErr'); }
+
+        /* Tab handling */
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                const view = tab.getAttribute('data-view');
+                document.querySelectorAll('.view').forEach(v => v.style.display = 'none');
+                document.getElementById('view-' + view).style.display = 'block';
+            });
+        });
+
+        /* Report */
+        async function loadReport() {
+            const body = document.getElementById('reportBody');
+            const err = document.getElementById('reportErr');
+            err.style.display = 'none';
+            body.innerHTML = `<tr><td colspan="5" class="no-data">Loading...</td></tr>`;
+            const url = await findWorkingGet('getassetsbyplayer');
+            if (!url) {
+                body.innerHTML = `<tr><td colspan="5" class="no-data">No report endpoint found</td></tr>`;
+                show('reportErr', 'Tried /api/getassetsbyplayer and /getassetsbyplayer but none responded OK.');
                 return;
             }
-
-            // fetch actual data
             try {
-                const resp = await fetch(working);
-                if (!resp.ok) throw new Error(`${resp.status} ${resp.statusText} - ${await resp.text()}`);
-                const data = await resp.json();
-                if (!data || data.length === 0) {
-                    tbody.innerHTML = `<tr><td colspan="5" class="no-data">No data found</td></tr>`;
-                    return;
-                }
-                tbody.innerHTML = '';
+                const res = await fetch(url);
+                if (!res.ok) throw new Error('Status ' + res.status + ' ' + await res.text());
+                const data = await res.json();
+                if (!data || data.length === 0) { body.innerHTML = `<tr><td colspan="5" class="no-data">No data</td></tr>`; return; }
+                body.innerHTML = '';
                 data.forEach((it, idx) => {
+                    const playerId = it.playerId ?? it.PlayerId;
+                    const assetId = it.assetId ?? it.AssetId;
                     const tr = document.createElement('tr');
                     tr.innerHTML = `<td>${idx + 1}</td>
-                            <td>${escapeHtml(it.playerName ?? it.PlayerName ?? '')}</td>
-                            <td>${it.level ?? it.Level ?? ''}</td>
-                            <td>${it.age ?? it.Age ?? ''}</td>
-                            <td>${escapeHtml(it.assetName ?? it.AssetName ?? '')}</td>`;
-                    tbody.appendChild(tr);
+                      <td>${escapeHtml(it.playerName ?? it.PlayerName ?? '')}</td>
+                      <td>${it.level ?? it.Level ?? ''}</td>
+                      <td>${it.age ?? it.Age ?? ''}</td>
+                      <td>${escapeHtml(it.assetName ?? it.AssetName ?? '')}</td>
+                      <td>${playerId ? `<button class="btn-delete" data-player-id="${playerId}">Delete</button>` : `<button class="btn-delete-noid">Delete</button>`}</td>`;
+                    body.appendChild(tr);
                 });
+
+                // attach handlers (same as before)
+                document.querySelectorAll('.btn-delete').forEach(btn => {
+                    btn.addEventListener('click', async ev => {
+                        const id = btn.getAttribute('data-player-id');
+                        if (!id) return alert('Missing player id');
+                        if (!confirm('Delete player and all related records?')) return;
+                        let deleted = false;
+                        const urls = makeUrls(`deleteplayer/${id}`);
+                        for (const u of urls) {
+                            try {
+                                const dres = await fetch(u, { method: 'DELETE' });
+                                if (dres.ok) { deleted = true; break; }
+                            } catch (e) { }
+                        }
+                        if (deleted) { alert('Player deleted'); await loadReport(); await refreshLists(); }
+                        else alert('Delete failed.');
+                    });
+                });
+
+                document.querySelectorAll('.btn-delete-noid').forEach(btn => {
+                    btn.addEventListener('click', async () => {
+                        const provided = prompt('Player id not present in report. Enter playerId GUID to delete (or Cancel):');
+                        if (!provided) return;
+                        if (!confirm('Delete player and related records?')) return;
+                        const urls = makeUrls(`deleteplayer/${provided}`);
+                        let deleted = false;
+                        for (const u of urls) {
+                            try { const dres = await fetch(u, { method: 'DELETE' }); if (dres.ok) { deleted = true; break; } } catch (e) { }
+                        }
+                        if (deleted) { alert('Deleted'); await loadReport(); await refreshLists(); } else alert('Delete failed.');
+                    });
+                });
+
             } catch (e) {
-                err.textContent = 'Error loading data: ' + e.message;
-                err.style.display = 'block';
-                tbody.innerHTML = `<tr><td colspan="5" class="no-data">Error loading data</td></tr>`;
-                console.error(e);
+                body.innerHTML = `<tr><td colspan="5" class="no-data">Error loading data</td></tr>`;
+                show('reportErr', 'Error: ' + e.message);
             }
         }
 
-        // seed: try each candidate POST endpoints until one returns created/ok
-        async function seedSampleData() {
-            const status = document.getElementById('status');
-            const err = document.getElementById('error');
-            err.style.display = 'none';
-            status.textContent = 'Seeding...';
 
-            // create player
-            let player = null, asset = null;
-            for (let i = 0; i < seedPlayerEndpointCandidates.length; i++) {
-                const ep = seedPlayerEndpointCandidates[i];
-                try {
-                    const p = await fetch(ep, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ playerName: 'SeedPlayer', fullName: 'Seed Player', age: 30, level: 1 }) });
-                    if (p.ok) { player = await p.json(); break; }
-                } catch (e) { console.log('seed player try', ep, e.message); }
+        /* Register player */
+        document.getElementById('btnRegister').addEventListener('click', async () => {
+            clearNotices();
+            const name = document.getElementById('p_name').value.trim();
+            if (!name) return show('registerErr', 'Player name required');
+            const obj = {
+                playerName: name,
+                fullName: document.getElementById('p_full').value.trim(),
+                age: parseInt(document.getElementById('p_age').value) || 0,
+                level: parseInt(document.getElementById('p_level').value) || 0,
+                email: document.getElementById('p_email').value.trim()
+            };
+            const r = await tryPost('registerplayer', obj);
+            if (r.ok) {
+                show('registerMsg', 'Created id: ' + (r.data?.playerId ?? r.data?.PlayerId ?? 'n/a'));
+                document.getElementById('p_name').value = ''; document.getElementById('p_full').value = ''; document.getElementById('p_age').value = ''; document.getElementById('p_level').value = ''; document.getElementById('p_email').value = '';
+                await loadReport(); await refreshLists();
+            } else show('registerErr', 'Failed: ' + (r.text || r.error || JSON.stringify(r)));
+        });
+
+        document.getElementById('btnClear').addEventListener('click', () => { document.getElementById('p_name').value = ''; document.getElementById('p_full').value = ''; document.getElementById('p_age').value = ''; document.getElementById('p_level').value = ''; document.getElementById('p_email').value = ''; clearNotices(); });
+
+        /* Create asset */
+        document.getElementById('btnCreateAsset').addEventListener('click', async () => {
+            clearNotices();
+            const name = document.getElementById('a_name').value.trim();
+            if (!name) return show('createErr', 'Asset name required');
+            const obj = { assetName: name, description: document.getElementById('a_desc').value.trim(), levelRequire: parseInt(document.getElementById('a_level').value) || 0 };
+            const r = await tryPost('createasset', obj);
+            if (r.ok) {
+                show('createMsg', 'Created id: ' + (r.data?.assetId ?? r.data?.AssetId ?? 'n/a'));
+                document.getElementById('a_name').value = ''; document.getElementById('a_desc').value = ''; document.getElementById('a_level').value = '';
+                await loadReport(); await refreshLists();
+            } else show('createErr', 'Failed: ' + (r.text || r.error || JSON.stringify(r)));
+        });
+
+        /* Assign */
+        async function refreshLists() {
+            const selP = document.getElementById('selPlayer');
+            const selA = document.getElementById('selAsset');
+
+            selP.innerHTML = '<option>Loading...</option>';
+            selA.innerHTML = '<option>Loading...</option>';
+
+            // try getplayers/getassets first
+            const playersUrl = await findWorkingGet('getplayers');
+            const assetsUrl = await findWorkingGet('getassets');
+
+            try {
+                if (playersUrl) {
+                    const pr = await fetch(playersUrl);
+                    if (pr.ok) {
+                        const pl = await pr.json();
+                        if (Array.isArray(pl) && pl.length > 0) {
+                            selP.innerHTML = pl.map(x => `<option value="${x.playerId}">${escapeHtml(x.playerName)} (${x.playerId})</option>`).join('');
+                        } else {
+                            selP.innerHTML = '<option value="">(no players)</option>';
+                        }
+                    } else selP.innerHTML = '<option value="">(error)</option>';
+                } else {
+                    // fallback -> build list from report (names only)
+                    const rep = await findWorkingGet('getassetsbyplayer');
+                    if (!rep) { selP.innerHTML = '<option value="">(no players)</option>'; }
+                    else {
+                        const r = await fetch(rep); const data = await r.json();
+                        const uniq = [];
+                        (data || []).forEach(it => {
+                            const id = it.playerId ?? it.PlayerId;
+                            const name = it.playerName ?? it.PlayerName;
+                            if (id) {
+                                if (!uniq.find(u => u.id === id)) uniq.push({ id, name });
+                            } else {
+                                if (!uniq.find(u => u.name === name)) uniq.push({ id: null, name });
+                            }
+                        });
+                        selP.innerHTML = uniq.length ? uniq.map(u => u.id ? `<option value="${u.id}">${escapeHtml(u.name)} (${u.id})</option>` : `<option value="${u.name}">${escapeHtml(u.name)}</option>`).join('') : '<option value="">(no players)</option>';
+                    }
+                }
+
+                if (assetsUrl) {
+                    const ar = await fetch(assetsUrl);
+                    if (ar.ok) {
+                        const al = await ar.json();
+                        selA.innerHTML = al.length ? al.map(x => `<option value="${x.assetId}">${escapeHtml(x.assetName)} (${x.assetId})</option>`).join('') : '<option value="">(no assets)</option>';
+                    } else selA.innerHTML = '<option value="">(error)</option>';
+                } else {
+                    const rep = await findWorkingGet('getassetsbyplayer');
+                    if (!rep) selA.innerHTML = '<option value="">(no assets)</option>';
+                    else {
+                        const r = await fetch(rep); const data = await r.json();
+                        const uniq = [];
+                        (data || []).forEach(it => {
+                            const aid = it.assetId ?? it.AssetId;
+                            const an = it.assetName ?? it.AssetName;
+                            if (aid) {
+                                if (!uniq.find(u => u.id === aid)) uniq.push({ id: aid, name: an });
+                            } else {
+                                if (!uniq.find(u => u.name === an)) uniq.push({ id: null, name: an });
+                            }
+                        });
+                        selA.innerHTML = uniq.length ? uniq.map(u => u.id ? `<option value="${u.id}">${escapeHtml(u.name)} (${u.id})</option>` : `<option value="${u.name}">${escapeHtml(u.name)}</option>`).join('') : '<option value="">(no assets)</option>';
+                    }
+                }
+            } catch (e) {
+                selP.innerHTML = '<option value="">(error)</option>';
+                selA.innerHTML = '<option value="">(error)</option>';
             }
-            if (!player) { err.textContent = 'Failed to create player on any endpoint.'; err.style.display = 'block'; status.textContent = ''; return; }
-
-            // create asset
-            for (let i = 0; i < seedAssetEndpointCandidates.length; i++) {
-                const ep = seedAssetEndpointCandidates[i];
-                try {
-                    const a = await fetch(ep, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ assetName: 'SeedSword', description: 'Seeded', levelRequire: 1 }) });
-                    if (a.ok) { asset = await a.json(); break; }
-                } catch (e) { console.log('seed asset try', ep, e.message); }
-            }
-            if (!asset) { err.textContent = 'Failed to create asset on any endpoint.'; err.style.display = 'block'; status.textContent = ''; return; }
-
-            // assign
-            for (let i = 0; i < seedAssignEndpointCandidates.length; i++) {
-                const ep = seedAssignEndpointCandidates[i];
-                try {
-                    const asg = await fetch(ep, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ playerId: player.playerId ?? player.PlayerId, assetId: asset.assetId ?? asset.AssetId }) });
-                    if (asg.ok) { status.textContent = 'Seed completed'; await loadReport(); setTimeout(() => status.textContent = '', 2000); return; }
-                } catch (e) { console.log('assign try', ep, e.message); }
-            }
-
-            err.textContent = 'Failed to assign asset after creating player/asset.';
-            err.style.display = 'block';
-            status.textContent = '';
         }
 
-        function escapeHtml(str) {
-            return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
-        }
+        document.getElementById('btnRefreshLists').addEventListener('click', async () => {
+            clearNotices(); await refreshLists(); show('assignMsg', 'Lists refreshed'); setTimeout(() => hideIds('assignMsg'), 2000);
+        });
 
-        document.getElementById('btnLoad').addEventListener('click', loadReport);
-        document.getElementById('btnSeed').addEventListener('click', seedSampleData);
+        document.getElementById('btnAssign').addEventListener('click', async () => {
+            clearNotices();
+            const selP = document.getElementById('selPlayer'), selA = document.getElementById('selAsset');
+            let playerVal = selP.value, assetVal = selA.value;
+
+            const isGuid = s => /^[0-9a-fA-F-]{36}$/.test(s);
+            let playerId = isGuid(playerVal) ? playerVal : null;
+            let assetId = isGuid(assetVal) ? assetVal : null;
+
+            if (!playerId) {
+                playerId = prompt('Enter playerId GUID for player "' + playerVal + '" (or cancel):');
+                if (!playerId) return show('assignErr', 'Cancelled');
+            }
+            if (!assetId) {
+                assetId = prompt('Enter assetId GUID for asset "' + assetVal + '" (or cancel):');
+                if (!assetId) return show('assignErr', 'Cancelled');
+            }
+
+            const r = await tryPost('assignasset', { playerId, assetId });
+            if (r.ok) { show('assignMsg', 'Assigned OK'); await loadReport(); } else show('assignErr', 'Failed: ' + (r.text || r.error || JSON.stringify(r)));
+        });
+
+        /* Seed button */
+        document.getElementById('btnSeed').addEventListener('click', async () => {
+            // simple seed flow
+            const p = await tryPost('registerplayer', { playerName: 'Seed-' + Date.now(), fullName: 'Seed', age: 20, level: 1 });
+            if (!p.ok) return alert('Seed player failed: ' + (p.text || p.error));
+            const a = await tryPost('createasset', { assetName: 'SeedSword-' + Date.now(), description: 'seed', levelRequire: 1 });
+            if (!a.ok) return alert('Seed asset failed: ' + (a.text || a.error));
+            const asg = await tryPost('assignasset', { playerId: p.data?.playerId ?? p.data?.PlayerId, assetId: a.data?.assetId ?? a.data?.AssetId });
+            if (!asg.ok) return alert('Seed assign failed: ' + (asg.text || asg.error));
+            alert('Seed OK'); await loadReport(); await refreshLists();
+        });
+
+        /* Init */
+        (async function init() {
+            await loadReport(); await refreshLists();
+        })();
+
+        /* small helper */
+        function escapeHtml(s) { return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;'); }
     </script>
 </body>
 </html>
